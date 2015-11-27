@@ -1,5 +1,8 @@
 'use strict';
 
+// Load in config
+require('dotenv').load();
+
 // Required Libs
 var Hapi = require('hapi');
 var Bell = require('bell');
