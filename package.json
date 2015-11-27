@@ -1,0 +1,27 @@
+{
+  "name": "nxtslide",
+  "version": "0.0.1",
+  "description": "An app for controlling HTML5 slidedeck",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukmadlz/nxtslide.git"
+  },
+  "author": "Mike Elsmore <mike@elsmore.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ukmadlz/nxtslide/issues"
+  },
+  "homepage": "https://github.com/ukmadlz/nxtslide#readme",
+  "dependencies": {
+    "bell": "^6.0.0",
+    "dotenv": "^1.2.0",
+    "hapi": "^11.1.2",
+    "hapi-auth-cookie": "^3.1.0",
+    "inert": "^3.2.0"
+  }
+}
