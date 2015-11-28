@@ -6,9 +6,8 @@ require('dotenv').load();
 // Required Libs
 var Hapi = require('hapi');
 var Bell = require('bell');
+var Inert = require('inert');
 var Path = require('path');
-
-var server = new Hapi.Server();
 
 // Instantiate the server
 var server = new Hapi.Server({
@@ -28,6 +27,25 @@ var server = new Hapi.Server({
 server.connection({
   host: process.env.VCAP_APP_HOST || 'localhost',
   port: process.env.VCAP_APP_PORT || 3000,
+});
+
+// Hapi Log
+server.log(['error', 'database', 'read']);
+
+// Register Hapi Plugins
+server.register(Inert, function() {});
+
+// Static site
+server.route({
+  method: 'GET',
+  path: '/{param*}',
+  handler: {
+    directory: {
+      path: '.',
+      redirectToSlash: true,
+      index: true,
+    },
+  },
 });
 
 // Start Hapi
