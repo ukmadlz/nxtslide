@@ -59,17 +59,7 @@ server.views({
 });
 
 // Static site
-server.route({
-  method: 'GET',
-  path: '/{param*}',
-  handler: {
-    directory: {
-      path: '.',
-      redirectToSlash: true,
-      index: true,
-    },
-  },
-});
+server.register(require('./routes/static'), hapiErr);
 
 // Default
 server.route({
