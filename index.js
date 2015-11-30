@@ -64,20 +64,31 @@ server.views({
 // Static site
 server.register(require('./routes/static'), hapiErr);
 
+// Auth
+server.register(require('./routes/auth'), hapiErr);
+
 // Default
 server.route({
   method: 'GET',
   path: '/',
-  handler: (request, reply) => {
-    reply.view('Default', {
-      title: 'Start | Hapi ' + request.server.version,
-      message: 'Yo Bro!'
-    });
+  config: {
+    auth: {
+      mode: 'try',
+      strategy: 'nxtslide-cookie'
+    },
+    plugins: {
+      'hapi-auth-cookie': {
+        redirectTo: false
+      }
+    },
+    handler: (request, reply) => {
+      reply.view('Default', {
+        title: 'Start | Hapi ' + request.server.version,
+        message: 'Yo Bro!'
+      });
+    }
   }
 });
-
-// Auth
-server.register(require('./routes/auth'), hapiErr);
 
 // Start Hapi
 server.start(function(err) {

@@ -4,7 +4,7 @@ module.exports = function(server) {
 
   server.state('token');
   server.state('secret');
-  server.auth.strategy('session', 'cookie', {
+  server.auth.strategy('nxtslide-cookie', 'cookie', {
       cookie: 'sid',
       password: 'cookie_encryption_password',
       redirectTo: '/login'
@@ -27,7 +27,9 @@ module.exports = function(server) {
                     return reply('Authentication failed due to: ' + request.auth.error.message);
                 }
 
-                return reply.redirect('/dashboard/');
+                request.auth.session.set(request.auth.credentials);
+
+                return reply.redirect('/dashboard');
             }
         }
     });
