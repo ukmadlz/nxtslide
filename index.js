@@ -11,6 +11,7 @@ require('dotenv').load();
 // Required Libs
 var Hapi = require('hapi');
 var Bell = require('bell');
+var HapiAuthCookie = require('hapi-auth-cookie');
 var Inert = require('inert');
 var Vision = require('vision');
 var Path = require('path');
@@ -48,6 +49,8 @@ var hapiErr = function(err) {
 }
 server.register(Inert, hapiErr);
 server.register(Vision, hapiErr);
+server.register(Bell, hapiErr);
+server.register(HapiAuthCookie, hapiErr);
 
 // View handling
 server.views({
@@ -72,6 +75,9 @@ server.route({
     });
   }
 });
+
+// Auth
+server.register(require('./routes/auth'), hapiErr);
 
 // Start Hapi
 server.start(function(err) {
