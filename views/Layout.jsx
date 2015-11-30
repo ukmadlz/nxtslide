@@ -8,7 +8,6 @@ var Layout = React.createClass({
             <html>
                 <head>
                     <title>{this.props.title}</title>
-                    <script src="/controller.js" ></script>
                 </head>
                 <body>
                     {this.props.children}

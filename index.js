@@ -67,6 +67,12 @@ server.register(require('./routes/static'), hapiErr);
 // Auth
 server.register(require('./routes/auth'), hapiErr);
 
+// dashboard
+server.register(require('./routes/dashboard'), hapiErr);
+
+// controller
+server.register(require('./routes/controller'), hapiErr);
+
 // Default
 server.route({
   method: 'GET',
