@@ -37,8 +37,8 @@ var server = new Hapi.Server({
 
 // Set Hapi Connections
 server.connection({
-  host: process.env.VCAP_APP_HOST || 'localhost',
-  port: process.env.VCAP_APP_PORT || 3000,
+  // host: process.env.VCAP_APP_HOST || 'localhost',
+  port: process.env.VCAP_APP_PORT || process.env.PORT || 3000,
 });
 
 // Hapi Log
