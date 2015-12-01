@@ -13,7 +13,7 @@ var Layout = React.createClass({
                     {this.props.children}
                     <hr />
                     <p>
-                        <a href="/">Home</a> | <a href="/about">About Us</a>
+                        <a href="/">Home</a> | <a href="/about">About Us</a> | <a href="/login" >Login</a>
                     </p>
                 </body>
             </html>

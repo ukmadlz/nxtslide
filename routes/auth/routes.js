@@ -2,20 +2,6 @@
 
 module.exports = function(server) {
 
-  server.state('token');
-  server.state('secret');
-  server.auth.strategy('nxtslide-cookie', 'cookie', {
-      cookie: 'sid',
-      password: 'cookie_encryption_password',
-      redirectTo: '/login'
-  });
-  server.auth.strategy('github', 'bell', {
-        provider: 'github',
-        password: 'cookie_encryption_password',
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
-        isSecure: false,
-    });
   server.route({
         method: ['GET', 'POST'], // Must handle both GET and POST
         path: '/login',          // The callback endpoint registered with the provider
@@ -27,9 +13,16 @@ module.exports = function(server) {
                     return reply('Authentication failed due to: ' + request.auth.error.message);
                 }
 
-                request.auth.session.set(request.auth.credentials);
+                var account = {
+                  id: request.auth.credentials.profile.id,
+                  username: request.auth.credentials.profile.username,
+                  displayName: request.auth.credentials.profile.displayName,
+                  email: request.auth.credentials.profile.email
+                }
 
-                return reply.redirect('/dashboard');
+                request.auth.session.set(request.auth.credentials.profile);
+
+                return reply.redirect('/dashboard').state('nxtslide-cookie', account);
             }
         }
     });

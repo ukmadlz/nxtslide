@@ -14,6 +14,7 @@ var Bell = require('bell');
 var HapiAuthCookie = require('hapi-auth-cookie');
 var Inert = require('inert');
 var Vision = require('vision');
+var Yar = require('yar');
 var Path = require('path');
 var dateFormat = require('dateformat');
 
@@ -49,8 +50,16 @@ var hapiErr = function(err) {
 }
 server.register(Inert, hapiErr);
 server.register(Vision, hapiErr);
-server.register(Bell, hapiErr);
-server.register(HapiAuthCookie, hapiErr);
+server.register({
+    register: Yar,
+    options: {
+        storeBlank: false,
+        cookieOptions: {
+            password: 'cookie_encryption_password',
+            isSecure: false
+        }
+    }
+}, hapiErr);
 
 // View handling
 server.views({
@@ -65,6 +74,21 @@ server.views({
 server.register(require('./routes/static'), hapiErr);
 
 // Auth
+server.register(Bell, hapiErr);
+server.register(HapiAuthCookie, hapiErr);
+server.auth.strategy('nxtslide-cookie', 'cookie', {
+    cookie: 'nxtslide-cookie',
+    password: 'cookie_encryption_password',
+    redirectTo: '/',
+    isSecure: process.env.HTTPS
+});
+server.auth.strategy('github', 'bell', {
+    provider: 'github',
+    password: 'cookie_encryption_password',
+    clientId: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+    isSecure: process.env.HTTPS
+});
 server.register(require('./routes/auth'), hapiErr);
 
 // dashboard
