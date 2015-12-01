@@ -244,6 +244,49 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   
   var guid = Base64.encode((new Date().toISOString())+window.location.href);
   
+  var qrcodeDiv=document.createElement('div');
+  qrcodeDiv.id='qrcode';
+  document.getElementsByTagName('section')[0].appendChild(qrcodeDiv);
+  
   new QRCode(document.getElementById("qrcode"), serviceURL+guid);
+// alert('Please use the following URL on your device:\n\n'+serviceURL+guid);
+  
+    var pusher = new Pusher('bc44db9d5dd777b071f6', {
+      encrypted: true
+    });
+    var channel = pusher.subscribe('deck_'+guid);
+    channel.bind('controller', function(data) {
+      switch(data.direction) {
+        case 'left':
+          if(typeof Reveal == 'object') {
+            Reveal.left();
+          } else if(typeof remark == 'object') {
+            remark.gotoPreviousSlide();
+          }
+          break;
+        case 'up':
+          if(typeof Reveal == 'object') {
+            Reveal.up();
+          } else if(typeof remark == 'object') {
+            remark.gotoPreviousSlide();
+          }
+          break;
+        case 'down':
+          if(typeof Reveal == 'object') {
+            Reveal.down();
+          } else if(typeof remark == 'object') {
+            remark.gotoNextSlide();
+          }
+          break;
+        default:
+        case 'right':
+          if(typeof Reveal == 'object') {
+            Reveal.right();
+          } else if(typeof remark == 'object') {
+            remark.gotoNextSlide();
+          }
+          break;
+      }
+    });
   
 })({});
