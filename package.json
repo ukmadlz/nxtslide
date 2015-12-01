@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ukmadlz/nxtslide#readme",
   "dependencies": {
     "babel": "^6.1.18",
+    "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
     "babel-preset-react": "^6.1.18",
     "bell": "^6.0.0",
