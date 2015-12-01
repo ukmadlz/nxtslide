@@ -255,6 +255,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       encrypted: true
     });
     var channel = pusher.subscribe('deck_'+guid);
+    channel.bind('remove', function(data) {
+       document.getElementById("qrcode").remove(); 
+    });
     channel.bind('controller', function(data) {
       switch(data.direction) {
         case 'left':
