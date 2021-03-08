@@ -37,7 +37,7 @@
     "react-dom": "^0.14.3",
     "superagent": "^1.4.0",
     "vision": "^4.0.1",
-    "webpack": "^1.12.9",
+    "webpack": "^2.2.0",
     "yar": "^5.0.0"
   }
 }
