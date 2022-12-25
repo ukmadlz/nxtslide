@@ -20,7 +20,7 @@
   "dependencies": {
     "babel": "^6.1.18",
     "babel-core": "^6.2.1",
-    "babel-loader": "^6.2.0",
+    "babel-loader": "^8.2.4",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
     "bell": "^6.0.0",
@@ -37,7 +37,7 @@
     "react-dom": "^0.14.3",
     "superagent": "^1.4.0",
     "vision": "^4.0.1",
-    "webpack": "^1.12.9",
+    "webpack": "^5.0.0",
     "yar": "^5.0.0"
   }
 }
